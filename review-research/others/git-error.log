@@ -1,0 +1,20 @@
+### 2015/06/04
+ %git fetch https://codereview.qt-project.org/qt/qtbase refs/changes/59/3559/3
+ -- error log --
+ fatal: https://codereview.qt-project.org/qt/qtbase/info/refs download error - error:0D0890A1:asn1 encoding routines:ASN1_verify:unknown message digest algorithm
+
+### 2015/06/06
+ % git clone https://github.com/ruby/ruby.git
+ -- error log--
+ fatal: https://github.com/ruby/ruby.git/info/refs download error - SSL certificate problem, verify that the CA cert is OK. Details:
+ error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed
+
+### 2015/06/06
+ % git config --global http.sslcainfo /usr/share/curl/curl-ca-bundle.crt //この実行により、エラーログが変わった
+ % git clone https://github.com/ruby/ruby.git
+ -- error log --
+ fatal: https://github.com/goodpic/hoge.git/info/refs download error - error setting certificate verify locations:
+   CAfile: /usr/share/curl/curl-ca-bundle.crt
+   CApath: none
+###
+
