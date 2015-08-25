@@ -1,0 +1,65 @@
+import sys
+import csv
+import MySQLdb
+from collections import defaultdict
+
+### Init dictionary
+dic_re = defaultdict(lambda: [])
+dic_me = defaultdict(lambda: [])
+dic_au = defaultdict(lambda: [])
+
+def convertTime(t):
+	if(t < 10):
+		s = "0"+str(t)
+		return s
+		#return str(t)
+	else:
+		return str(t)
+
+### Read all-data-file
+Id_list = defaultdict(lambda: 0)
+for row in open(sys.argv[1], "r"):
+	words = row.split(",")
+	writtenOn = words[4]
+	#time = str(writtenOn.year)+convertTime(writtenOn.month)+convertTime(writtenOn.day)+convertTime(writtenOn.hour)+convertTime(writtenOn.minute)+convertTime(writtenOn.second) # year+day+hour+minute+second
+	Id_list[words[1]] = writtenOn
+
+### Get MySQLdb Qt
+cnct = MySQLdb.connect(db="qt",user="root", passwd="toshi1126")
+cursor = cnct.cursor()
+
+cursor.execute("select ReviewId, AuthorId, WrittenOn, Message from Comment ;")
+lines = cursor.fetchall()
+#print(len(lines))
+tmp = []
+for line in lines:
+	reviewId = line[0]
+	authorId = line[1]
+	writtenOn = line[2]
+	message = line[3].replace("\n", " ")
+	time = str(writtenOn.year)+"/"+str(writtenOn.month)+"/"+str(writtenOn.day)+" "+str(writtenOn.hour)+":"+convertTime(writtenOn.minute) # year+day+hour+minute+second
+	dic_re[time].append(str(reviewId))
+	dic_me[str(reviewId)].append(message)
+	dic_au[str(reviewId)].append(str(authorId))
+	if reviewId == 3559:
+		print(time)
+
+### test
+for l in tmp:
+	print(dic_re[l])
+#print(len(dic_me[Id_list[1]]))
+#print(dic_au[Id_list[1]])
+
+### Calculate 
+for Id, time in Id_list.items():
+	### hashtable about score
+	sAll = defaultdict(lambda: 0)	# Number of total score
+	sa = defaultdict(lambda: 0)		# Number of +2 
+	sb = defaultdict(lambda: 0)		# Number of +1
+	sc = defaultdict(lambda: 0)		# Number of 0
+	sd = defaultdict(lambda: 0)		# Number of -1
+	se = defaultdict(lambda: 0)		# Number of -2
+	#print(Id+":"+time)
+	if "2011//25" in time:
+		print(dic_re[time])
+	

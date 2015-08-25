@@ -1,0 +1,19 @@
+import sys
+import csv
+import MySQLdb
+from collections import defaultdict
+i = 0
+for row in open(sys.argv[1], "r"):
+	words = row.split(",")
+	#print(words[7])
+	if i > 0:
+		assert words[7] > 0
+		if words[7] == "1":
+			#print(words[6])
+			assert words[6] > 0
+		else:
+			#print(words[13])
+			assert words[13] > 0
+	else:
+		#print(words[7])
+	i += 1

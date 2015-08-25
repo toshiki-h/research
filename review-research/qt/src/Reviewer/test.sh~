@@ -1,0 +1,4 @@
+#!/bin/tcsh
+set str1 = ../../input/4level0630/all_data_with_exp_$1
+set str2 = _0630.csv
+python numVoteReviewer.py $str1

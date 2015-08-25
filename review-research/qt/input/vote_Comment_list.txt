@@ -1,0 +1,9 @@
+2:Looks good to me, approved
+2:Looks good to me
+1:Looks good to me, but someone else must approve
+1:Works for me
+1:Verified
+0:No score
+-1:I would prefer that you didn't submit this
+-2:Do not submit
+-2:I would prefer that you didn't merge this

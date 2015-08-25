@@ -1,0 +1,4 @@
+(1) <全部取得> select ReviewId, WrittenOn, Comment from Comment
+
+(2) dic1[WrittenOn] = ReviewId1, ReviewId2, ..., ReviewIdN
+	dic2[ReviewId] = Comment

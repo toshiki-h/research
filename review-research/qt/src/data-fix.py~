@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+
+### import lib
+import sys
+import csv
+import time
+import MySQLdb
+from collections import defaultdict
+from datetime import datetime
+
+### Read data
+FMT = '%Y-%m-%d %H:%M:%S'
+Init_date = '2011-05-17 11:31:56' ## first project created time
+header = 0 #top header is label
+for row in open(sys.argv[1], "r"):
+	if header != 0:
+		words = row.split(",")
+		#print(words[3]+","+words[4]+","+words[5])
+		if words[3] == "merged":
+			status = 1
+		else:
+			assert words[3] == "abandoned"
+			status = 0
+		### convert time to numeric
+		dt1 = datetime.strptime(words[4], FMT) - datetime.strptime(Init_date, FMT)	# CreatedOn
+		dt2 = datetime.strptime(words[5], FMT) - datetime.strptime(Init_date, FMT)	# LastUpdatedOn
+		assert dt1 <= dt2 # dt1 is absolutely earlier than dt2　
+		print(str(words[1])+","+str(status)+","+str(dt1.days*24*60*60+dt1.seconds)+","+str(dt2.days*24*60*60+dt2.seconds))
+	else:
+		header = 1
+
